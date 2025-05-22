@@ -20,7 +20,7 @@ describe('ipStore', () => {
   })
 
   describe('addIp', () => {
-    it('dodaje nowy wiersz z domyślnymi wartościami', () => {
+    it('adds a new row with default values', () => {
       const store = useIpStore()
       const initialLength = store.ipList.length
 
@@ -36,7 +36,7 @@ describe('ipStore', () => {
   })
 
   describe('updateIp', () => {
-    it('aktualizuje IP i resetuje powiązane pola', async () => {
+    it('updates IP and resets related fields', async () => {
       const store = useIpStore()
       vi.mocked(isValidIP).mockReturnValue(true)
       vi.mocked(fetchIpDetails).mockResolvedValue(mockIpDetails)
@@ -55,7 +55,7 @@ describe('ipStore', () => {
       expect(store.ipList[0].errorMessage).toBeUndefined()
     })
 
-    it('ustawia błąd dla nieprawidłowego IP', async () => {
+    it('sets error for invalid IP', async () => {
       const store = useIpStore()
       vi.mocked(isValidIP).mockReturnValue(false)
 
@@ -65,7 +65,7 @@ describe('ipStore', () => {
       expect(store.ipList[0].errorMessage).toBe('Invalid IP address')
     })
 
-    it('pobiera dane dla prawidłowego IP', async () => {
+    it('fetches data for valid IP', async () => {
       const store = useIpStore()
       vi.mocked(isValidIP).mockReturnValue(true)
       vi.mocked(fetchIpDetails).mockResolvedValue(mockIpDetails)
@@ -78,7 +78,7 @@ describe('ipStore', () => {
       expect(store.ipList[0].country_code).toBe('PL')
     })
 
-    it('obsługuje błędy API', async () => {
+    it('handles API errors', async () => {
       const store = useIpStore()
       vi.mocked(isValidIP).mockReturnValue(true)
       vi.mocked(fetchIpDetails).mockRejectedValue(new Error('API error'))
@@ -89,7 +89,7 @@ describe('ipStore', () => {
       expect(store.ipList[0].errorMessage).toBe('API error')
     })
 
-    it('aktualizuje status na "loading" podczas pobierania', async () => {
+    it('updates status to "loading" during fetching', async () => {
       const store = useIpStore()
       vi.mocked(isValidIP).mockReturnValue(true)
       vi.mocked(fetchIpDetails).mockImplementation(
